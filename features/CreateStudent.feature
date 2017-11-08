@@ -33,7 +33,7 @@ Feature: Create a new student to a class
      	 | Nadia Ahassouni   | 23-09-1992    | 09-04-1994 
 
 
- 	Scenario Outline: Add a new student name and birthday already existing failed
+ 	Scenario: Add a new student name and birthday already existing failed
  		Given I want to create a new student named "Nadia Ahassouni" and born on 06-03-1994
  		And there is already a student named "Nadia Ahassouni" born on the same date
  		When I wrote in the form the name of the new student and his date of birthday
@@ -42,7 +42,7 @@ Feature: Create a new student to a class
  		And the student is not created
 
 
- 	 Scenario Outline: Add a new student error - one or all of the inputs are empty
+ 	 Scenario : Add a new student error - one or all of the inputs are empty
  		Given I want to create a new student named "Nadia Ahassouni" and born on 06-03-1994
  		And this student does not already exit in the list of students
  		When I wrote in the form the last name of the new student and his date of birthday
