@@ -1,16 +1,6 @@
 // @flow
 import axios from "axios";
-
-/**
- * URL de base du serveur back.
- * Différent selon prod ou dev.
- */
-let ENDPOINT;
-if (process.env.NODE_ENV === 'production') {
-    ENDPOINT = "http://localhost:8080";
-} else {
-    ENDPOINT = "http://172.18.13.113:8080";
-}
+import Configs from "../configs/Configs";
 
 /**
  * Crée une instance axios préconfiguré (header, baseURL...).
@@ -19,7 +9,7 @@ if (process.env.NODE_ENV === 'production') {
  */
 const getApiInstance = () => {
     let axiosInstance = axios.create({
-        baseURL: ENDPOINT,
+        baseURL: Configs.ENDPOINT,
         timeout: 10000,
         headers: {
             'Accept': 'application/json',

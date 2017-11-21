@@ -9,8 +9,8 @@ import type {Classroom} from "../types/Classroom";
  * @param newClass
  * @returns {Promise<any>}
  */
-async function postClass(newClass: Classroom) {
-    return await ApiInstance.post("/class", newClass);
+function postClass(newClass: Classroom) {
+    return ApiInstance.post("/class", newClass);
 }
 
 export default {

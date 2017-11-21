@@ -1,6 +1,6 @@
 import {createChannel} from "./index";
 import * as ChatActions from "../actions/ChatActions";
-import store from "../Store";
+import store from "../configs/Store";
 
 let channel = createChannel({
     channelName: "/channel/public",
