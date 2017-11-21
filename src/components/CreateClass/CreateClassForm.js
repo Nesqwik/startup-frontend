@@ -1,11 +1,8 @@
 // @flow
 import RaisedButton from "material-ui/RaisedButton";
-import CircularProgress from 'material-ui/CircularProgress';
 import React from "react";
 import {Field, reduxForm} from "redux-form";
-import {renderTextField, required, minLength2, alphaNum} from "../../utils/ReduxFormUtils";
-import DoneIcon from 'material-ui/svg-icons/action/done';
-import BlockIcon from 'material-ui/svg-icons/content/block';
+import {alphaNum, minLength2, renderTextField, required} from "../../utils/ReduxFormUtils";
 import ValidButton from "../ValidButton/ValidButton";
 
 /**
