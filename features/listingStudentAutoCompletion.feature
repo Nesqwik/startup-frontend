@@ -1,8 +1,7 @@
-Feature: Listing the list of student
+Feature: Listing the list of student (auto-completion)
   As a teacher
-  I want to list the list of students
-  In see students existing
-
+  I want to list the students which names start with the input
+  Then I see the list of these students 
 
 
   Scenario: 3 students whose name starts with the input are displayed
