@@ -5,57 +5,54 @@ Feature: Add a new student to a class
 
 
 
-  Scenario Outline: add a non-existent student in an existing class success
-    Given the class <className> exist
-    And I want to add a new student to this class
-    When I wrote the starting of the student name <someLetters> in the input
-    And I choose the <studentName> in the list of student 
-    And I click the button submit
-    Then student is added to the class
-    And Im redirected to home page
-
-    Examples: 
-      | className | someLetters | studentName     | 
-      | CM1       | Nad         | Nadia Ahassouni |
-      | CM2       | Nes         | Louis Nesqwik   |
-      | CM1       | H           | Helene Mayer    |
+  Scenario: add a student already created and nonexistent in the class success
+    Given the class "CM1" exist
+    And the student "Stephane Fonte" is already created
+    And the student "Stephane Fonte" don't exist in this class
+    When I write "Stephane Fonte" in the input
+    And I click the button submit to add this student to class "CM1"
+    Then "Stephane Fonte" is added to the class "CM1"
+    And the pop-up is hidden
 
 
 
-  Scenario: add non-existent student in list failed
-    Given the class CM1 exist
-    And I want to add a student name "Nadia Ahassouni" to this class
-    And this student is nonexistent
-    When I wrote "Nadia Ahassouni" in the input
-    Then no student list is displayed
-    And I cant click the button to add this student
+  Scenario: add non-created student failed
+    Given the class "CM2" exist
+    And the student "Stephane Fonte" is not yet created
+    When I write "Stephane Fonte" in the input
+    Then an error is displayed
+    And I can't click the button submit
 
 
 
-  Scenario: add a student in an existing class cancel failed
-    Given the class CM1 exist
-    And I want to add a student named "Nadia Ahassouni" to this class
-    And I wrote the begening of the student name in the input
-    When I choose "Nadia Ahassouni" in the list of student displayed
-    And I click the cancel submit
+  Scenario: cancel the addition of a student in a class
+    Given the class "CM1" exist
+    And the student "Stephane Fonte" is already created
+    And the student "Stephane Fonte" don't exist in this class
+    When I write "Stephane Fonte" in the input
+    And I click the button cancel
     Then the pop-up is hidden
     And the student is not added to the class
 
 
 
-  Scenario: add new student with empty input failed
-    Given the class CM1 exist
-    And I want to add a student name "Nadia Ahassouni" to this class
+  Scenario: add student with empty input failed
+    Given the class "CM1" exist
     When let the input name empty
-    Then I cant click the button add to add the student
+    Then I can't click the button submit
 
 
 
-  Scenario: add a student name with invalid character failed
-    Given the class CM2 exist
-    And I want to add a student named "Basile Dyment" to this class
-    When I wrote "@Basile"
-    Then I cant click the button submit to add the student
+  Scenario Outline: add a student name with invalid character failed
+    Given the class "CM2" exist
+    When I wrote <studentName> in the input
+    Then I can't click the button submit
+
+    Examples: 
+       | studentName         |
+       | Ahassouni N@dia     |
+       | Ahassouni *Na       |
+       | Aha$$ouni Nadia     |
 
 
 
