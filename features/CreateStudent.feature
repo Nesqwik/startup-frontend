@@ -27,10 +27,10 @@ Feature: Create a new student to a class
  		Then the student is created
 
  	 	Examples: 
-     	 | name              | dateBirth1    | dateBirth1    
-     	 | Nadia Ahassouni   | 06-03-1994    | 23-09-1992 
-     	 | Nadia Ahassouni   | 07-02-1994    | 12-12-1993 
-     	 | Nadia Ahassouni   | 23-09-1992    | 09-04-1994 
+     	 | name              | dateBirth1    | dateBirth1    |
+     	 | Nadia Ahassouni   | 06-03-1994    | 23-09-1992    |
+     	 | Nadia Ahassouni   | 07-02-1994    | 12-12-1993    |
+     	 | Nadia Ahassouni   | 23-09-1992    | 09-04-1994    |
 
 
  	Scenario: Add a new student name and birthday already existing failed
