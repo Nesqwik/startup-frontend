@@ -1,0 +1,43 @@
+language: node_js
+node_js:
+  - "7"
+cache:
+  directories:
+    - node_modules
+    - build
+
+install:
+  - npm install
+
+addons:
+  sonarcloud:
+    organization: "nesqwik-github" # the key of the org you chose at step #3
+    token:
+      secure: $SONAR_TOKEN # encrypted value of your token
+    branches:
+      - master
+      - develop
+      - feature/[a-zA-Z0-9]*
+
+script:
+  - npm test -- --coverage --runInBand
+  - sonar-scanner
+  - if [ "$TRAVIS_BRANCH" = "develop" ]; then NODE_ENV="development" && npm run build; fi
+  - if [ "$TRAVIS_BRANCH" != "develop" ]; then npm run build; fi
+
+
+deploy:
+  - provider: firebase
+    skip_cleanup: true
+    token:
+      secure: $FIREBASE_TOKEN
+    project: "ludiclasse"
+    on:
+      branch: master
+  - provider: firebase
+    skip_cleanup: true
+    token:
+      secure: $FIREBASE_TOKEN
+    project: "ludiclasse-dev"
+    on:
+      branch: develop

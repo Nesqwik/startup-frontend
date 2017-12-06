@@ -13,10 +13,10 @@ const composeEnhancers =
     typeof window === 'object' &&
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
         window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-            actionCreators: {
-
-            }
+            actionCreators: {}
         }) : compose;
+
+
 
 export const middleware = composeEnhancers(
     applyMiddleware(promiseMiddleware()),

@@ -28,4 +28,28 @@ describe("classActions.js", async () => {
 
         actual.payload.then((res) => expect(res).toEqual(returnedClassroom));
     });
+
+    test('fetchClasses', () => {
+
+        let returnedClassroom: Array<Classroom> = [{
+            "className": "classe de test",
+            "id": 1
+        }, {
+            "className": "classe de test 2",
+            "id": 2
+        }, {
+            "className": "classe de test 3",
+            "id": 3
+        }];
+
+        mock.onGet('/class').reply(200, returnedClassroom);
+
+
+        let actual = ClassActions.fetchClasses();
+
+        expect(actual.type).toEqual(ClassActions.FETCH_CLASSES);
+        expect(actual.payload).toBeInstanceOf(Promise);
+
+        actual.payload.then((res) => expect(res).toEqual(returnedClassroom));
+    });
 });

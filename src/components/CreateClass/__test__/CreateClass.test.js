@@ -3,10 +3,8 @@
 import React from 'react'
 import Enzyme from 'enzyme'
 import CreateClass from "../CreateClass";
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 import Dialog from "material-ui/Dialog";
-import RaisedButton from "material-ui/RaisedButton";
+import AddButton from "../../Common/AddButton";
 
 describe('<CreateClass />', () => {
 
@@ -37,8 +35,7 @@ describe('<CreateClass />', () => {
 
     it("Should show add button without form", () => {
         const wrapper = createElement();
-        expect(wrapper.find(FloatingActionButton)).not.toBeNull();
-        expect(wrapper.find(FloatingActionButton).find(ContentAdd)).not.toBeNull();
+        expect(wrapper.find(AddButton)).not.toBeNull();
 
         expect(wrapper.find(Dialog).props().open).toBe(false);
     });
@@ -46,7 +43,7 @@ describe('<CreateClass />', () => {
 
     it("Should open dialog if click button", () => {
         const wrapper = createElement();
-        wrapper.find(FloatingActionButton).simulate('click');
+        wrapper.find(AddButton).simulate('click');
 
         expect(wrapper.find(Dialog).props().open).toBe(true);
     });
