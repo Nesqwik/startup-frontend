@@ -1,41 +1,30 @@
+// @flow
+
 import React from "react";
 import ReactDOM from "react-dom";
 import {Provider} from "react-redux";
-// Material ui pre-requirement
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {browserHistory} from 'react-router'
+import {syncHistoryWithStore} from 'react-router-redux'
 
-
-import ListClassContainer from "./containers/ListClass/ListClassContainer";
-import CreateClassContainer from "./containers/CreateClass/CreateClassContainer";
-import store from "./Store";
 import "./index.css";
 import "./api/index";
 
+import store from "./configs/Store";
+import theme from "./configs/theme";
 
-const muiTheme = getMuiTheme({
-    palette: {
-        primary1Color: "#AD0000",
-        primary2Color: "#8A0000",
-        primary3Color: "#720000",
-        accent1Color: "#575757",
-        accent2Color: "#424242",
-        accent3Color: "#282828",
-    }
-});
+import Routes from "./pages/Routes";
 
-injectTapEventPlugin();
+const history = syncHistoryWithStore(browserHistory, store);
 
+/**
+ * Point d'entrée de react sur la page index.html.
+ */
 ReactDOM.render(
-    <MuiThemeProvider muiTheme={muiTheme}>
+    <MuiThemeProvider muiTheme={theme}>
         <Provider store={store}>
-            <div>
-                <ListClassContainer/>
-                <CreateClassContainer/>
-            </div>
+            <Routes history={history}/>
         </Provider>
-    </MuiThemeProvider>
-    ,
+    </MuiThemeProvider>,
     document.getElementById('root')
 );

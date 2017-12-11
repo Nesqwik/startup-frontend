@@ -3,10 +3,9 @@
 import React, {Component} from "react";
 import CreateClassForm from "./CreateClassForm";
 import Dialog from "material-ui/Dialog";
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 import * as ReducerUtils from "../../reducers/ReducerUtils";
 import type {Classroom} from "../../types/Classroom";
+import AddButton from "../Common/AddButton";
 
 
 type Props = {
@@ -76,16 +75,18 @@ class CreateClass extends Component<Props, State> {
     render() {
         return (
             <div>
-                <FloatingActionButton onClick={this.handleOpen.bind(this)} secondary={true}>
-                    <ContentAdd />
-                </FloatingActionButton>
+                <AddButton onClick={this.handleOpen.bind(this)}/>
                 <Dialog
                     title="Créer une classe"
                     modal={true}
                     open={this.state.open}
                     className="dialog-title"
                 >
-                    <CreateClassForm onSubmit={this.onSubmit.bind(this)} onCancel={this.handleClose.bind(this)}/>
+                    <CreateClassForm
+                        onSubmit={this.onSubmit.bind(this)}
+                        onCancel={this.handleClose.bind(this)}
+                        isLoading={this.props.postStatus.posting}
+                    />
                     {this.state.serverErrors.map(error => <p>{error}</p>)}
                 </Dialog>
             </div>
