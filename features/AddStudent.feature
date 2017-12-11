@@ -4,40 +4,34 @@ Feature: Add a new student to a class
   In order to follow him
 
 
-
-  Scenario: add a student already created and nonexistent in the class success
+  Scenario Outline: add a student in the class success
     Given the class "CM1" exist
-    And the student "Stephane Fonte" is already created
-    And the student "Stephane Fonte" don't exist in this class
-    When I write "Stephane Fonte" in the input
+    When I want to add a new student
+    And I complete inputs : <firstName> <lastName> <birth>
     And I click the button submit to add this student to class "CM1"
     Then "Stephane Fonte" is added to the class "CM1"
     And the pop-up is hidden
 
 
-
-  Scenario: add non-created student failed
-    Given the class "CM2" exist
-    And the student "Stephane Fonte" is not yet created
-    When I write "Stephane Fonte" in the input
-    Then an error is displayed
-    And I can't click the button submit
-
+      Examples: 
+       | firstName       | lastName     |     birth       |
+       | Nadia           | Ahassouni    |   2000-12-11    |
+       | Jean            | Balbala      |   1994-03-06    |
 
 
   Scenario: cancel the addition of a student in a class
     Given the class "CM1" exist
-    And the student "Stephane Fonte" is already created
-    And the student "Stephane Fonte" don't exist in this class
-    When I write "Stephane Fonte" in the input
-    And I click the button cancel
-    Then the pop-up is hidden
-    And the student is not added to the class
+    When I want to add a new student
+    And I add complete the form informations
+    And I click the button cancel 
+    Then "Stephane Fonte" the student is not added in the class
+    And the pop-up is hidden
 
 
 
   Scenario: add student with empty input failed
     Given the class "CM1" exist
+    When I want to add a new student in this class
     When let the input name empty
     Then I can't click the button submit
 
@@ -45,7 +39,8 @@ Feature: Add a new student to a class
 
   Scenario Outline: add a student name with invalid character failed
     Given the class "CM2" exist
-    When I wrote <studentName> in the input
+    When I want to add a new student in this class
+    And I write <studentName> in the input
     Then I can't click the button submit
 
     Examples: 
@@ -53,6 +48,4 @@ Feature: Add a new student to a class
        | Ahassouni N@dia     |
        | Ahassouni *Na       |
        | Aha$$ouni Nadia     |
-
-
-
+       | ahassouni nadia     |
