@@ -8,7 +8,7 @@ import {browserHistory} from 'react-router'
 import {syncHistoryWithStore} from 'react-router-redux'
 
 import "./index.css";
-import "./api/index";
+import "./api/listeners/WsHelper";
 
 import store from "./configs/Store";
 import theme from "./configs/theme";

@@ -1,18 +1,18 @@
 // @flow
 
 import React, {Component} from "react";
-import coverImage from "./cover.png";
+import {CardMedia, CardTitle} from "material-ui";
+
 
 class BackCover extends Component {
 
-    render() {
-        const style = {
-            width: "100%",
-            marginTop: "-29px"
-        };
 
+
+    render() {
         return (
-            <img src={coverImage} alt="Couverture par défault" style={style}/>
+            <CardMedia overlay={<CardTitle title={this.props.title}/>}>
+                <img src={this.props.image} alt="" />
+            </CardMedia>
         );
     }
 }

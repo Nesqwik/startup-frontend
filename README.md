@@ -251,7 +251,7 @@ Les reducers sont les fonctions ayant pour but de réagir aux actions et de modi
 
 Le store est en fait un gros objet (key:value). Chaque reducer va permettre de traiter un sous élément du store.
 
-Pour qu'un reducer reçoive les actions, il faut l'ajouter dans le fichier reducers/index.js : 
+Pour qu'un reducer reçoive les actions, il faut l'ajouter dans le fichier reducers/index.js :
 
 ```jsx
 import {combineReducers} from "redux";

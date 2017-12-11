@@ -295,4 +295,5 @@ export const arrayToMap = (array: Array<any>, idAttr?: string) => {
         obj[id] = item;
     });
     return obj;
+
 };
