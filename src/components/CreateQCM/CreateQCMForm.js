@@ -28,6 +28,11 @@ let CreateQCMForm = props => {
     const {handleSubmit, valid, onCancel, isLoading} = props;
 
 
+    /**
+     * Permet de créer le formulaire pour ajouter les propositions de réponses.
+     * @param fields les réponses potentielles crées
+     * @returns {*}
+     */
     const renderAnswers = ({fields}) => {
 
         return (
@@ -89,6 +94,11 @@ let CreateQCMForm = props => {
         );
     };
 
+    /**
+     * Permet de créer le formulaire pour ajouter questions.
+     * @param fields les questions potentielles crées
+     * @returns {*}
+     */
     const renderQuestions = ({fields}) => {
         return (
             <div>

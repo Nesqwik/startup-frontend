@@ -8,6 +8,7 @@ import type {Answer} from "../../types/Answer";
 import {listenNewAnswer} from "../../api/listeners/QCMListeners";
 import {Subheader, Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from "material-ui";
 
+
 type Props = {
     qcmId: number,
     qcm: ?QCM,
@@ -20,10 +21,26 @@ type Props = {
 
 type State = {}
 
+/**
+ * Composant permettant d'afficher les résultats du QCM des élèves.
+ *
+ * propriétés :
+ *  qcmId: id du qcm
+ *  qcm: qcm actif
+ *  students: élèves de la classe
+ *  answerMap: //TODO Louis le commentaire
+ *  fetchStudents: effectue la récupération des élèves
+ *  fetchQCMs: effectue la récupération des QCMs
+ *  fetchAnswers: effectue la récupération des réponses
+ */
 class DisplayQCMAnswers extends React.Component<Props, State> {
 
     state = {};
 
+    /**
+     * Constructeur de la classe
+     * @param props
+     */
     constructor(props: Props) {
         super(props);
         this.props.fetchStudents();
@@ -31,13 +48,23 @@ class DisplayQCMAnswers extends React.Component<Props, State> {
         this.props.fetchAnswers(this.props.qcmId)
     }
 
+    /**
+     * //TODO Louiiiiiiiis
+     * @param newProps
+     */
     componentWillReceiveProps(newProps: Props) {
         if (newProps.qcm) {
             listenNewAnswer(newProps.qcm.id);
         }
     }
 
-
+    /**
+     * Assigne une couleur rouge ou verte ou blanche en fonction de si l'élève a faux, vrai ou n'a pas encore répondu
+     * @param student l'élève
+     * @param studentAnswersMap //TODO Louis
+     * @param answers les réponses
+     * @returns {string}
+     */
     getColor(student: Student, studentAnswersMap: { [number]: StudentAnswers }, answers: Array<Answer>) {
         let hasGood = false;
         let isFalse = false;
@@ -56,6 +83,13 @@ class DisplayQCMAnswers extends React.Component<Props, State> {
         return "white"
     }
 
+    /**
+     * Affiche la case colorée correspondant à la réponse de l'élève
+     * @param student l'élève
+     * @param studentAnswersMap //TODO louis
+     * @param answers les réponses
+     * @returns {*}
+     */
     renderStudentAnswer(student: Student, studentAnswersMap: { [number]: StudentAnswers }, answers: Array<Answer>) {
         let color = this.getColor(student, studentAnswersMap, answers);
 
@@ -70,6 +104,12 @@ class DisplayQCMAnswers extends React.Component<Props, State> {
         )
     }
 
+    /**
+     * Affiche la ligne de question
+     * @param students la liste des élèves (pour le nombre de case)
+     * @param question la question
+     * @returns {*}
+     */
     renderQuestion(students: Array<Student>, question: Question) {
         return (
             <TableRow>
@@ -79,6 +119,11 @@ class DisplayQCMAnswers extends React.Component<Props, State> {
         )
     }
 
+    /**
+     * Affiche le QCM
+     * @param qcm le qcm
+     * @returns {any[]}
+     */
     renderQcm(qcm: ?QCM) {
         if (qcm) {
             return qcm.questions.map((question: Question) => {

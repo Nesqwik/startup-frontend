@@ -4,6 +4,8 @@ import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import Configs from "../../configs/Configs";
 
+//TODO commente Louis
+
 const socket = new SockJS(Configs.WS_ENDPOINT);
 const stompClient = Stomp.over(socket);
 

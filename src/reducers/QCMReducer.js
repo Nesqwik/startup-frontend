@@ -41,7 +41,11 @@ const initialState: State = {
     fetchAnswersStatus: ReducerUtils.createFetchStatus()
 };
 
-
+/**
+ * //TODO Louis
+ * @param answersMap
+ * @returns {{byId: *, allIds: void}}
+ */
 function newAnswerState(answersMap) {
     return {
         byId: answersMap,
@@ -86,7 +90,12 @@ const reducer = (state: State = initialState, action: ReducerUtils.Action) => {
     }
 };
 
-
+/**
+ * //TODO Louis
+ * @param state
+ * @param action
+ * @returns {*}
+ */
 const addNewAnswer = (state: State, action: ReducerUtils.Action) => {
     let qcmId = action.meta.qcmId;
     let wsAnswer: WSAnswer = action.payload;
@@ -120,6 +129,12 @@ const addNewAnswer = (state: State, action: ReducerUtils.Action) => {
     });
 };
 
+/**
+ * fonction effectuée si le post QCM est rejeté
+ * @param state
+ * @param action
+ * @returns {*}
+ */
 const postQCMRejected = (state: State, action: ReducerUtils.Action) => {
     return update(state, {
         postStatus: {
@@ -128,6 +143,12 @@ const postQCMRejected = (state: State, action: ReducerUtils.Action) => {
     });
 };
 
+/**
+ *  fonction effectuée si le post QCM est fini
+ * @param state
+ * @param action
+ * @returns {*}
+ */
 const postQCMFulfilled = (state: State, action: ReducerUtils.Action) => {
     let newQcm: QCM = action.payload;
     return update(state, {
@@ -147,6 +168,12 @@ const postQCMFulfilled = (state: State, action: ReducerUtils.Action) => {
     });
 };
 
+/**
+ * fonction effectuée si le post QCM est en attente
+ * @param state
+ * @param action
+ * @returns {*}
+ */
 const postQCMPending = (state: State, action: ReducerUtils.Action) => {
     return update(state, {
         postStatus: {
@@ -155,6 +182,12 @@ const postQCMPending = (state: State, action: ReducerUtils.Action) => {
     });
 };
 
+/**
+ * fonction effectuée si le fetch QCM est rejeté
+ * @param state
+ * @param action
+ * @returns {*}
+ */
 const fetchQCMRejected = (state: State, action: ReducerUtils.Action) => {
     return update(state, {
         fetchQCMStatus: {
@@ -163,6 +196,12 @@ const fetchQCMRejected = (state: State, action: ReducerUtils.Action) => {
     });
 };
 
+/**
+ * fonction effectuée si le fetch QCM est fini
+ * @param state
+ * @param action
+ * @returns {*}
+ */
 const fetchQCMFulfilled = (state: State, action: ReducerUtils.Action) => {
 
     let qcms: Array<QCM> = action.payload;
@@ -182,6 +221,12 @@ const fetchQCMFulfilled = (state: State, action: ReducerUtils.Action) => {
     });
 };
 
+/**
+ * fonction effectuée si le fetch QCM est en attente
+ * @param state
+ * @param action
+ * @returns {*}
+ */
 const fetchQCMPending = (state: State, action: ReducerUtils.Action) => {
     return update(state, {
         fetchQCMStatus: {
@@ -190,6 +235,12 @@ const fetchQCMPending = (state: State, action: ReducerUtils.Action) => {
     });
 };
 
+/**
+ * fonction effectuée si le fetch Answers est rejeté
+ * @param state
+ * @param action
+ * @returns {*}
+ */
 const fetchAnswersRejected = (state: State, action: ReducerUtils.Action) => {
     return update(state, {
         fetchAnswersStatus: {
@@ -198,6 +249,11 @@ const fetchAnswersRejected = (state: State, action: ReducerUtils.Action) => {
     });
 };
 
+/**
+ * //TODO Louis
+ * @param answers
+ * @returns {{}}
+ */
 function getAnswerMap(answers: Array<Object>) {
     let map = {};
 
@@ -218,6 +274,12 @@ function getAnswerMap(answers: Array<Object>) {
     return map;
 }
 
+/**
+ * fonction effectuée si le fetch Answers est fini
+ * @param state
+ * @param action
+ * @returns {*}
+ */
 const fetchAnswersFulfilled = (state: State, action: ReducerUtils.Action) => {
     let answersMap: { [number]: StudentAnswers } = getAnswerMap(action.payload);
     let qcmId: number = action.meta.qcmId;
@@ -234,6 +296,12 @@ const fetchAnswersFulfilled = (state: State, action: ReducerUtils.Action) => {
     });
 };
 
+/**
+ * fonction effectuée si le fetch Answers est en attente
+ * @param state
+ * @param action
+ * @returns {*}
+ */
 const fetchAnswersPending = (state: State, action: ReducerUtils.Action) => {
     return update(state, {
         fetchAnswersStatus: {
@@ -249,36 +317,73 @@ export default reducer;
 /* SELECTORS */
 /*************/
 
+/**
+ * récupère l'état du QCM
+ * @param store
+ * @returns {function(State=, Action)}
+ */
 const getState = (store: Object) => {
     return store.QCMState;
 };
 
+/**
+ * met à jour les QCM par classe
+ * @param store
+ * @param classId id de la classe
+ * @returns {any[]}
+ */
 export const getQCMPerClass = (store: Object, classId: number) => {
     let state = getState(store);
     return state.qcms.allIds.map(id => state.qcms.byId[id]).filter((qcm: QCM) => qcm.classroom.id === classId);
 };
 
+/**
+ * met à jour un qcm
+ * @param store
+ * @param qcmId l'id du qcm
+ * @returns {*}
+ */
 export const getQCM = (store: Object, qcmId: number) => {
     let state = getState(store);
     return state.qcms.byId[qcmId];
 };
 
+/**
+ * récupère l'état du post
+ * @param store
+ */
 export const getPostStatus = (store: Object) => {
     let state = getState(store);
     return state.postStatus;
 };
 
+/**
+ * récupère les réponses du qcm
+ * @param store
+ * @param qcmId l'id du qcm
+ * @returns {*}
+ */
 export const getQcmAnswers = (store: Object, qcmId: number) => {
     let state = getState(store);
     if(!state.answers[qcmId]) return {};
     return state.answers[qcmId].byId;
 };
 
+/**
+ * récupère l'état du fetch QCM
+ * @param store
+ * @returns {FetchStatus|FetchStatus|*|fetchQCMStatus|{$set}}
+ */
 export const getFetchQCMStatus = (store: Object) => {
     let state = getState(store);
     return state.fetchQCMStatus;
 };
 
+/**
+ * récupère l'état du fetch answers
+ * @param store
+ * @returns {FetchStatus|FetchStatus|*|fetchAnswersStatus|{$set}}
+ */
 export const getFetchAnswersStatus = (store: Object) => {
     let state = getState(store);
     return state.fetchAnswersStatus;

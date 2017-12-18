@@ -12,7 +12,10 @@ import type {Classroom} from "../types/Classroom";
 function postClass(newClass: Classroom) {
     return ApiInstance.post("/class", newClass);
 }
-
+/**
+ * Requête GET sur /class
+ * @returns {Promise<any>}
+ */
 function getClasses() {
     return ApiInstance.get("/class");
 }

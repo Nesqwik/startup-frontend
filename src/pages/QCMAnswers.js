@@ -10,6 +10,11 @@ type Props = {
 type State = {
 }
 
+/**
+ * Page d'affichage des résultats à un QCM d'une classe
+ * Accessible via /qcm/idqcm
+
+ */
 class QCMAnswers extends Component<Props, State> {
     render() {
 

@@ -3,7 +3,9 @@
 import React, {Component} from "react";
 import {CardMedia, CardTitle} from "material-ui";
 
-
+/**
+ * Permet de créer une icone.
+ */
 class Icon extends Component {
 
 
