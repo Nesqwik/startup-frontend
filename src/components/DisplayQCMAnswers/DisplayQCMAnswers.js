@@ -55,7 +55,9 @@ class DisplayQCMAnswers extends React.Component<Props, State> {
      */
     componentWillReceiveProps(newProps: Props) {
         if (newProps.qcm) {
-            listenNewAnswer(newProps.qcm.id);
+            if(!this.props.qcm || this.props.qcm.id !== newProps.qcm.id) {
+                listenNewAnswer(newProps.qcm.id);
+            }
         }
     }
 
