@@ -3,7 +3,6 @@ import RaisedButton from "material-ui/RaisedButton";
 import React from "react";
 import {Field, reduxForm} from "redux-form";
 import {renderTextField, required, minLength2, alphaNum} from "../../utils/ReduxFormUtils";
-
 import ValidateButton from "../ValidateButton/ValidateButton";
 
 /**
@@ -29,8 +28,6 @@ let CreateClassForm = props => {
                 validate={[required, minLength2, alphaNum]}
             />
             <div>
-
-
                 <ValidateButton
                     isValid={valid}
                     isLoading={isLoading}

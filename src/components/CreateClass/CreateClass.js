@@ -74,7 +74,7 @@ class CreateClass extends Component<Props, State> {
 
     render() {
         return (
-            <div>
+            <div className="create-class">
                 <AddButton onClick={this.handleOpen.bind(this)}/>
                 <Dialog
                     title="Créer une classe"
