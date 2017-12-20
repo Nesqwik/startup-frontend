@@ -4,7 +4,9 @@ import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import Configs from "../../configs/Configs";
 
-//TODO commente Louis
+/**
+ * Boilerplate, permet de créer l'environnement temps réel.
+ */
 
 const socket = new SockJS(Configs.WS_ENDPOINT);
 const stompClient = Stomp.over(socket);
@@ -22,6 +24,9 @@ stompClient.connect({}, () => {
     subscribePendingList();
 }, (err) => console.error("error:", err));
 
+/**
+ *
+ */
 function subscribePendingList() {
     pendingSubscribtions.forEach(({channelName, handler}) => {
 
@@ -38,6 +43,12 @@ function subscribePendingList() {
     pendingSubscribtions = [];
 }
 
+/**
+ * Permet de s'inscrire à un channel.
+ * @param channelName Nom du channel
+ * @param handler Fonction à appeler en cas de message dans le channel donné
+ * @returns {{send: (function(string, Object))}}
+ */
 export function subscribeToChannel(channelName: string, handler: (Object) => void) {
     pendingSubscribtions.push({channelName, handler});
     if (isConnected) {

@@ -214,7 +214,7 @@ function addBonusFulfilled(state: State, action: ReducerUtils.Action){
 }
 
 /**
- * //TODO LOUIS
+ * Permet de mettre à jour les points (pour le temps réel, lors d'un message websocket)
  * @param state
  * @param action
  * @returns {*}

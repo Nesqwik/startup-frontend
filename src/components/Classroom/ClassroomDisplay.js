@@ -78,7 +78,11 @@ class ClassroomDisplay extends React.Component<Props, State> {
         if(!this.props.fetchStatusStudent.fetched) this.props.fetchStudents();
     }
 
-    //TODO: comment Louis
+    /**
+     * Fonction appelé à chaque mise à jour des propriétés.
+     * Permet la mise à jour du channel à écouter en cas de changement d'étudiants.
+     * @param nextProps
+     */
     componentWillReceiveProps(nextProps: Props) {
         nextProps.students.forEach((student: Student) => {
             StudentListeners.listenPointChange(student.id);
