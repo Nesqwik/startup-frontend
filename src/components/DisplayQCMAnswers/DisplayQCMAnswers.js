@@ -28,7 +28,7 @@ type State = {}
  *  qcmId: id du qcm
  *  qcm: qcm actif
  *  students: élèves de la classe
- *  answerMap: //TODO Louis le commentaire
+ *  answerMap: map answerId => StudentAnswer, correspond à la liste des étudiants ayant répondu à la question.
  *  fetchStudents: effectue la récupération des élèves
  *  fetchQCMs: effectue la récupération des QCMs
  *  fetchAnswers: effectue la récupération des réponses
@@ -49,7 +49,8 @@ class DisplayQCMAnswers extends React.Component<Props, State> {
     }
 
     /**
-     * //TODO Louiiiiiiiis
+     * Fonction appelé à chaque mise à jour de newProps.
+     * On va tester si le QCM a été modifié, et le cas échéant modifier le listener.
      * @param newProps
      */
     componentWillReceiveProps(newProps: Props) {
@@ -61,7 +62,7 @@ class DisplayQCMAnswers extends React.Component<Props, State> {
     /**
      * Assigne une couleur rouge ou verte ou blanche en fonction de si l'élève a faux, vrai ou n'a pas encore répondu
      * @param student l'élève
-     * @param studentAnswersMap //TODO Louis
+     * @param map answerId => StudentAnswer, correspond à la liste des étudiants ayant répondu à la question.
      * @param answers les réponses
      * @returns {string}
      */
@@ -86,7 +87,7 @@ class DisplayQCMAnswers extends React.Component<Props, State> {
     /**
      * Affiche la case colorée correspondant à la réponse de l'élève
      * @param student l'élève
-     * @param studentAnswersMap //TODO louis
+     * @param map answerId => StudentAnswer, correspond à la liste des étudiants ayant répondu à la question.
      * @param answers les réponses
      * @returns {*}
      */

@@ -42,7 +42,7 @@ const initialState: State = {
 };
 
 /**
- * //TODO Louis
+ * Crée l'état de réponse.
  * @param answersMap
  * @returns {{byId: *, allIds: void}}
  */
@@ -91,7 +91,7 @@ const reducer = (state: State = initialState, action: ReducerUtils.Action) => {
 };
 
 /**
- * //TODO Louis
+ * Ajoute la réponse (temps réel) aux réponses existantes.
  * @param state
  * @param action
  * @returns {*}
@@ -250,7 +250,7 @@ const fetchAnswersRejected = (state: State, action: ReducerUtils.Action) => {
 };
 
 /**
- * //TODO Louis
+ * Permet de récupérer la map de réponse
  * @param answers
  * @returns {{}}
  */
