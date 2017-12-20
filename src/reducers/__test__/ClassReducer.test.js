@@ -14,6 +14,11 @@ describe("ClassReducer.js", () => {
                 posting: false,
                 posted: false,
                 postError: null
+            },
+            fetchStatus: {
+                fetching: false,
+                fetched: false,
+                fetchError: null
             }
         };
 
@@ -144,6 +149,20 @@ describe("ClassReducer.js", () => {
         let expected = "any data";
 
         let actual = ClassSelectors.getPostStatus(globalStore);
+
+        expect(actual).toEqual(expected);
+    });
+
+    test("selector getFetchStatus", () => {
+        let globalStore = {
+            classState: {
+                fetchStatus: "any data"
+            }
+        };
+
+        let expected = "any data";
+
+        let actual = ClassSelectors.getFetchStatus(globalStore);
 
         expect(actual).toEqual(expected);
     });

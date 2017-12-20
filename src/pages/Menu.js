@@ -6,6 +6,7 @@ import MenuItem from 'material-ui/MenuItem';
 import AppBar from 'material-ui/AppBar';
 
 type Props = {
+    children: Array<any>
 };
 
 type State = {
@@ -36,7 +37,10 @@ class Menu extends Component<Props, State> {
     }
 
     render() {
-        const contentStyle = {  transition: 'margin-left 450ms cubic-bezier(0.23, 1, 0.32, 1)' };
+        const contentStyle = {
+            transition: 'margin-left 450ms cubic-bezier(0.23, 1, 0.32, 1)',
+            marginLeft: 0
+        };
 
         /**
          * Permet d'ajouter une marge au contenu de la page pour "pousser" le contenu hors du menu de gauche.
@@ -48,7 +52,7 @@ class Menu extends Component<Props, State> {
         return (
             <div>
                 <AppBar
-                    title="Gamification"
+                    title={<Link to={"/"} ><span className="appBarTitle">LudiClasse</span></Link>}
                     iconClassNameRight="muidocs-icon-navigation-expand-more"
                     onLeftIconButtonTouchTap={this.handleToggle.bind(this)}
                 />

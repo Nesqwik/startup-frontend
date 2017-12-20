@@ -17,8 +17,8 @@ class AddButton extends Component<Props, State> {
     render() {
         const style = {
             position: "absolute",
-            right: "50px",
-            top: "36px",
+            right: "30px",
+            marginTop: "-32px",
             zIndex: "1200"
         };
 

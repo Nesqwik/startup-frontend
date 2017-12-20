@@ -22,12 +22,22 @@ addons:
 script:
   - npm test -- --coverage --runInBand
   - sonar-scanner
-  - npm run build
+  - if [ "$TRAVIS_BRANCH" = "develop" ]; then NODE_ENV="development" && npm run build; fi
+  - if [ "$TRAVIS_BRANCH" != "develop" ]; then npm run build; fi
+
 
 deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
-  local_dir: build
-  on:
-    branch: master
+  - provider: firebase
+    skip_cleanup: true
+    token:
+      secure: $FIREBASE_TOKEN
+    project: "ludiclasse"
+    on:
+      branch: master
+  - provider: firebase
+    skip_cleanup: true
+    token:
+      secure: $FIREBASE_TOKEN
+    project: "ludiclasse-dev"
+    on:
+      branch: develop

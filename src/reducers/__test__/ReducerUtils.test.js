@@ -249,4 +249,60 @@ describe("ReducerUtils.js", () => {
         expect(actual).toEqual(expected);
     });
 
+
+    test('arrayToMap with default id', () => {
+        let array = [
+            {
+                id: 1,
+                value: "toto"
+            }, {
+                id: 2,
+                value: "tata"
+            }
+        ];
+
+        let expected = {
+            "1": {
+                id: 1,
+                value: "toto"
+            },
+            "2": {
+                id: 2,
+                value: "tata"
+            }
+        };
+
+        let actual = ReducerUtils.arrayToMap(array);
+
+        expect(actual).toEqual(expected);
+    });
+
+
+    test('arrayToMap with specified id', () => {
+        let array = [
+            {
+                idObj: 1,
+                value: "toto"
+            }, {
+                idObj: 2,
+                value: "tata"
+            }
+        ];
+
+        let expected = {
+            "1": {
+                idObj: 1,
+                value: "toto"
+            },
+            "2": {
+                idObj: 2,
+                value: "tata"
+            }
+        };
+
+        let actual = ReducerUtils.arrayToMap(array, "idObj");
+
+        expect(actual).toEqual(expected);
+    });
+
 });

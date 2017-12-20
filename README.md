@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Nesqwik/startup-frontend.svg?branch=master)](https://travis-ci.org/Nesqwik/startup-frontend)
+
 Ce projet est réalisé avec [Create React App](https://github.com/facebookincubator/create-react-app).
 
 ## Sommaire
@@ -177,7 +179,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(CreateClass)
 
 ```
 
-
 ### Actions
 Les actions sont les points d'entrées pour la modification du store.
 Toutes les modifications du store se font depuis les actions envoyés au reducer. 
@@ -218,7 +219,7 @@ Dans cet exemple, l'action de type POST_CLASS est créée et renvoyée. Cette ac
 etre interceptée par un middleware afin de la découper automatiquement en 2 actions.
 
  * Une première action "POST_CLASS_PENDING" indiquant que la requête a été envoyée.
- * Une seconde action selon le retour de la requête : 
+ * Une seconde action selon le retour de la requête :
    * "POST_CLASS_FULFILLED" indiquant que la requête a réussi. L'attribut "payload" a comme valeur le retour de l'appel HTTP.
    * "POST_CLASS_REJECTED" indiquant que la requête a ratée. L'attribut "payload" a comme valeur le retour de l'appel HTTP (une erreur).
 
@@ -227,7 +228,7 @@ etre interceptée par un middleware afin de la découper automatiquement en 2 ac
 
 Les API sont les fichiers contenant les fonction permettant d'appeler le back-end.
 
-Par exemple : 
+Par exemple :
 ```jsx
 import ApiInstance from "./ApiHelper";
 import type {Classroom} from "../types/Classroom";
@@ -250,7 +251,7 @@ Les reducers sont les fonctions ayant pour but de réagir aux actions et de modi
 
 Le store est en fait un gros objet (key:value). Chaque reducer va permettre de traiter un sous élément du store.
 
-Pour qu'un reducer reçoive les actions, il faut l'ajouter dans le fichier reducers/index.js : 
+Pour qu'un reducer reçoive les actions, il faut l'ajouter dans le fichier reducers/index.js :
 
 ```jsx
 import {combineReducers} from "redux";

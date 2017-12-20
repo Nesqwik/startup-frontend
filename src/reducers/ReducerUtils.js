@@ -278,3 +278,22 @@ export const updateUpdated = (status: UpdateStatus): UpdateStatus => {
 export const updateUpdateError = (status: UpdateStatus, error: string): UpdateStatus => {
     return updateRejected(status, error, UPDATING, UPDATE_ERROR);
 };
+
+
+/**
+ * Transforme un tableau d'objet en une map idObjet => Objet
+ * @param array Le tableau à transformer
+ * @param idAttr le nom de l'attribut à prendre en temps qu'id ("id" par défaut)
+ * @returns {*}
+ */
+export const arrayToMap = (array: Array<any>, idAttr?: string) => {
+    let obj = {};
+    if(!idAttr) idAttr = "id";
+
+    array.forEach((item: any) => {
+        let id: any = item[idAttr];
+        obj[id] = item;
+    });
+    return obj;
+
+};

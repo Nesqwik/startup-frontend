@@ -2,8 +2,8 @@
 import RaisedButton from "material-ui/RaisedButton";
 import React from "react";
 import {Field, reduxForm} from "redux-form";
-import {alphaNum, minLength2, renderTextField, required} from "../../utils/ReduxFormUtils";
-import ValidButton from "../ValidButton/ValidButton";
+import {renderTextField, required, minLength2, alphaNum} from "../../utils/ReduxFormUtils";
+import ValidateButton from "../ValidateButton/ValidateButton";
 
 /**
  * Formulaire de création de classe.
@@ -28,11 +28,12 @@ let CreateClassForm = props => {
                 validate={[required, minLength2, alphaNum]}
             />
             <div>
-                <ValidButton
-                    isLoading={isLoading}
+                <ValidateButton
                     isValid={valid}
-                    label="Créer"
+                    isLoading={isLoading}
+                    label={"Créer"}
                 />
+
                 <RaisedButton
                     label="Annuler"
                     onClick={onCancel}

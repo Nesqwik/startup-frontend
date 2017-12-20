@@ -13,6 +13,11 @@ function postClass(newClass: Classroom) {
     return ApiInstance.post("/class", newClass);
 }
 
+function getClasses() {
+    return ApiInstance.get("/class");
+}
+
 export default {
-    postClass: postClass
+    postClass: postClass,
+    getClasses: getClasses
 };
