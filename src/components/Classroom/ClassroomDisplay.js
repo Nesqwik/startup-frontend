@@ -3,16 +3,33 @@ import React from 'react'
 import type {Student} from "../../types/Student";
 import type {Classroom} from "../../types/Classroom";
 import classroomImage from "./classroom.png"
+import qrcodeIcon from "./qrcode.png"
 import Plus from "material-ui/svg-icons/content/add-circle"
 import Minus from "material-ui/svg-icons/content/remove-circle"
 import {
-    Card, CardText, CircularProgress, FlatButton, Table, TableBody, TableRow,
-    TableRowColumn
+    Card,
+    CardText,
+    CircularProgress,
+    FlatButton,
+    IconButton,
+    RaisedButton,
+    Tab,
+    Table,
+    TableBody,
+    TableRow,
+    TableRowColumn,
+    Tabs,
+    Toolbar,
+    ToolbarGroup
 } from "material-ui";
 import type * as ReducerUtils from "../../reducers/ReducerUtils";
 import BackCover from "../BackCover/BackCover";
 import AddStudent from "../AddStudent/AddStudent";
 import * as StudentListeners from "../../api/listeners/StudentListeners";
+import CreateQCMContainer from "../../containers/CreateQCM/CreateQCMContainer";
+import ListQCMContainer from "../../containers/ListQCM/ListQCMContainer";
+import Icon from "../Common/Icon";
+import * as QRCode from "qrcode";
 
 type Props = {
     students: Array<Student>,
@@ -67,15 +84,17 @@ class ClassroomDisplay extends React.Component<Props, State> {
 
 
     componentWillReceiveProps(nextProps: Props) {
-        nextProps.students.forEach((student: Student) => {
-            StudentListeners.listenPointChange(student.id);
-        });
+        if(this.props.students.length !== nextProps.students.length) {
+            nextProps.students.forEach((student: Student) => {
+                StudentListeners.listenPointChange(student.id);
+            });
+        }
     }
 
 
     /**
      * Fonction appelée pour ajouter un point Bonus
-     * @param student est l'élève qui a un point bonus ajouté.
+     * @param studentId est l'élève qui a un point bonus ajouté.
      */
     handleAddBonus(studentId: number){
         this.props.onAddBonus(studentId).then(() => {},(errors) => {
@@ -87,7 +106,7 @@ class ClassroomDisplay extends React.Component<Props, State> {
 
     /**
      * Fonction appelée pour ajouter un point Malus
-     * @param student est l'élève qui a un point malus ajouté.
+     * @param studentId est l'élève qui a un point malus ajouté.
      */
     handleAddMalus(studentId: number){
 
@@ -97,6 +116,63 @@ class ClassroomDisplay extends React.Component<Props, State> {
             });
         });
     }
+
+    /**
+
+     *
+     * Fonction appelée pour ouvrir une nouvelle fenêtre contenant le code QR
+     * @param student est l'élève donc le QR code est affiché
+     */
+    handleShowQRCode(student: Student){
+        QRCode.toCanvas(student.uuid, function (err, canvas) {
+            if (err) throw err;
+            let qrWindow = window.open("","QRCode");
+            qrWindow.document.body.innerHTML =
+                "<body>" +
+                "<table>" +
+                "<tr>" +
+                "<td>" +
+                "<input type=\"button\" value='Imprimer' onclick='print()'/>" +
+                "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td>" + student.firstName + " " + student.lastName + "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td><div id='qrContainer'></div></td>" +
+                "</tr>" +
+                "</table>" +
+                "</body>";
+            let container = qrWindow.document.getElementById('qrContainer')
+            container.appendChild(canvas)
+
+        });
+    }
+
+    /**
+     *
+     * Fonction appelée pour ouvrir une nouvelle fenêtre contenant le code QR
+     * @param students est le tableau contenant tous les élèves donc le QR code est affiché
+     */
+    handleShowAllQRCodes(students: Array<Student>){
+        let qrWindow = window.open("","QRCode");
+        let res = "<body><table><tr><input type=\"button\" value='Imprimer' onclick='print()'/></tr>";
+        students.forEach((student) =>
+                res +=
+                    "<tr>" +
+                    "<td>" + student.firstName + " " + student.lastName + "</td>" +
+                    `<td><div id="qrContainer${student.id}"></div></td>` +
+                    "</tr>"
+        );
+        qrWindow.document.body.innerHTML= res;
+
+        students.forEach((student) =>
+            QRCode.toCanvas(student.uuid, function (err, canvas) {
+                if (err) throw err;
+                let container = qrWindow.document.getElementById(`qrContainer${student.id}`);
+                container.appendChild(canvas)
+
+    }));}
 
     /**
      * Produit la liste des élèves d'une classe
@@ -126,8 +202,12 @@ class ClassroomDisplay extends React.Component<Props, State> {
                     />
                 </TableRowColumn>
                 <TableRowColumn>{student.points.bonus - student.points.malus}</TableRowColumn>
+                <TableRowColumn>
+                    <IconButton onClick={this.handleShowQRCode.bind(this, student)}>
+                        <Icon icon={qrcodeIcon}/>
+                    </IconButton>
+                </TableRowColumn>
             </TableRow>
-
         );
     }
 
@@ -146,17 +226,30 @@ class ClassroomDisplay extends React.Component<Props, State> {
                 <BackCover
                     title={this.props.classroom.className}
                     image={classroomImage}/>
-                <AddStudent classroom={this.props.classroom}
-                            postStatus={this.props.postStatus}
-                            onAddStudent={this.props.onAddStudent}/>
-                <CardText>
-                    <Table>
-                        <TableBody displayRowCheckbox={false}>
-                            {this.renderClass()}
-                        </TableBody>
-                    </Table>
+                <Tabs tabItemContainerStyle={{backgroundColor:"#720000"}}>
+                    <Tab label="Élèves">
+                        <Toolbar>
+                            <ToolbarGroup>
+                                <RaisedButton label="Imprimer tous les QRCodes" primary={true} disabled={this.props.students.length === 0} onClick={this.handleShowAllQRCodes.bind(this, this.props.students)}/>
+                            </ToolbarGroup>
+                        </Toolbar>
 
-                </CardText>
+                        <AddStudent classroom={this.props.classroom}
+                                    postStatus={this.props.postStatus}
+                                    onAddStudent={this.props.onAddStudent}/>
+                        <CardText>
+                            <Table>
+                                <TableBody displayRowCheckbox={false}>
+                                    {this.renderClass()}
+                                </TableBody>
+                            </Table>
+                        </CardText>
+                    </Tab>
+                    <Tab label="QCM">
+                        <CreateQCMContainer classId={this.props.classroom.id}/>
+                        <ListQCMContainer idClass={+this.props.classroom.id}/>
+                    </Tab>
+                </Tabs>
             </Card>
         )
     }

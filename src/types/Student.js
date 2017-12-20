@@ -20,5 +20,6 @@ export type Student = {
     classroom: {
         id: number
     },
-    points: Points
+    points: Points,
+    uuid: String
 };

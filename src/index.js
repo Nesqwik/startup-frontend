@@ -4,7 +4,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {Provider} from "react-redux";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import {browserHistory} from 'react-router'
+import {hashHistory} from 'react-router'
 import {syncHistoryWithStore} from 'react-router-redux'
 
 import "./index.css";
@@ -15,7 +15,7 @@ import theme from "./configs/theme";
 
 import Routes from "./pages/Routes";
 
-const history = syncHistoryWithStore(browserHistory, store);
+const history = syncHistoryWithStore(hashHistory, store);
 
 /**
  * Point d'entrée de react sur la page index.html.
