@@ -86,6 +86,8 @@ export const renderCustomCheckbox = ({ input}: Object) => (
     />
 );
 
+
+
 /*********************/
 /* FIELD VERIFICATOR */
 /*********************/

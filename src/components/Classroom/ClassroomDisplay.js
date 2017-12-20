@@ -118,6 +118,7 @@ class ClassroomDisplay extends React.Component<Props, State> {
     }
 
     /**
+
      *
      * Fonction appelée pour ouvrir une nouvelle fenêtre contenant le code QR
      * @param student est l'élève donc le QR code est affiché
@@ -225,7 +226,6 @@ class ClassroomDisplay extends React.Component<Props, State> {
                 <BackCover
                     title={this.props.classroom.className}
                     image={classroomImage}/>
-
                 <Tabs tabItemContainerStyle={{backgroundColor:"#720000"}}>
                     <Tab label="Élèves">
                         <Toolbar>
@@ -249,10 +249,7 @@ class ClassroomDisplay extends React.Component<Props, State> {
                         <CreateQCMContainer classId={this.props.classroom.id}/>
                         <ListQCMContainer idClass={+this.props.classroom.id}/>
                     </Tab>
-
                 </Tabs>
-
-
             </Card>
         )
     }
