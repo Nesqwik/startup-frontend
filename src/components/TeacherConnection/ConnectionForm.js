@@ -3,7 +3,7 @@
 import React from "react";
 import {Field, reduxForm} from "redux-form";
 import RaisedButton from "material-ui/RaisedButton";
-import {alphaNum, minLength2, renderPasswordField, renderTextField, required} from "../../utils/ReduxFormUtils";
+import {email, renderPasswordField, renderTextField, required} from "../../utils/ReduxFormUtils";
 import ValidateButton from "../ValidateButton/ValidateButton";
 
 /**
@@ -29,14 +29,14 @@ let ConnectionForm = props => {
                 name="teacherEmail"
                 component={renderTextField}
                 label="Email"
-                validate={[required, minLength2, alphaNum]}
+                validate={[required, email]}
             /><br/>
 
             <Field
                 name="teacherPassword"
                 component={renderPasswordField}
                 label="Mot de passe"
-                validate={[required, minLength2, alphaNum]}
+                validate={[required]}
             />
 
 

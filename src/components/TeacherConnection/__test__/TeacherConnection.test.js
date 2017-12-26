@@ -3,22 +3,31 @@
 import React from 'react'
 import Enzyme from 'enzyme'
 import Dialog from "material-ui/Dialog";
-import {IconButton} from "material-ui";
+import {IconButton, Tab} from "material-ui";
 import TeacherConnection from "../TeacherConnection";
 
 describe('<TeacherConnection />', () => {
 
     let onTeacherSubscribe;
+    let onTeacherConnect;
 
     function createElement() {
         onTeacherSubscribe = jest.fn().mockReturnValue(Promise.resolve());
+        onTeacherConnect = jest.fn().mockReturnValue(Promise.resolve());
         let props = {
             postStatusSubscription: {
                 posting: false,
                 posted: false,
                 postError: null
             },
+            postStatusConnection: {
+                posting: false,
+                posted: false,
+                postError: null
+            },
+
             onTeacherSubscribe: onTeacherSubscribe,
+            onTeacherConnect: onTeacherConnect,
         };
 
         return Enzyme.shallow(
@@ -49,7 +58,7 @@ describe('<TeacherConnection />', () => {
     });
 
 
-    it("Call the submit function", () => {
+    it("Call the submit function of subscription", () => {
         const wrapper = createElement();
 
         wrapper.instance().handleSubscribe({
@@ -63,5 +72,19 @@ describe('<TeacherConnection />', () => {
         expect(onTeacherSubscribe.mock.calls[0][0].email).toEqual("jean@wahou.br");
         expect(onTeacherSubscribe.mock.calls[0][0].password).toEqual("12345678");
     });
+
+    it("Call the submit function of connection", () => {
+        const wrapper = createElement();
+
+        wrapper.instance().handleConnect({
+            teacherEmail: "jean@wahou.br",
+            teacherPassword: "12345678",
+        });
+
+        expect(onTeacherConnect.mock.calls.length).toBe(1);
+        expect(onTeacherConnect.mock.calls[0][0].email).toEqual("jean@wahou.br");
+        expect(onTeacherConnect.mock.calls[0][0].password).toEqual("12345678");
+    });
+
 
 });

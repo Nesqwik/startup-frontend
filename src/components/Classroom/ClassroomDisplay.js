@@ -10,7 +10,7 @@ import {
     Card,
     CardText,
     CircularProgress,
-    FlatButton, FontIcon, IconButton, RaisedButton,
+    FlatButton, IconButton, RaisedButton,
     Tab,
     Table,
     TableBody,

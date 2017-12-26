@@ -33,4 +33,26 @@ describe("TeacherActions.js", async () => {
 
         actual.payload.then((res) => expect(res).toEqual(returnedTeacher));
     });
+
+    test('connectTeacher', () => {
+
+        let returnedTeacher = {
+            "id": 1,
+            "email": "dupont@random.com",
+        };
+
+        mock.onPost('/connect/teacher').reply(200, returnedTeacher);
+
+        let teacher: Teacher = {
+            id: 1,
+            email: "dupont@random.com",
+        };
+
+        let actual = TeacherActions.connectTeacher(teacher);
+
+        expect(actual.type).toEqual(TeacherActions.CONNECT_TEACHER);
+        expect(actual.payload).toBeInstanceOf(Promise);
+
+        actual.payload.then((res) => expect(res).toEqual(returnedTeacher));
+    });
 });

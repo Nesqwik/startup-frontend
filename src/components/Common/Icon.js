@@ -1,7 +1,6 @@
 // @flow
 
 import React, {Component} from "react";
-import {CardMedia, CardTitle} from "material-ui";
 
 
 class Icon extends Component {

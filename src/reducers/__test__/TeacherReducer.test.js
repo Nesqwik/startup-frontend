@@ -10,6 +10,11 @@ describe("TeacherReducer.js", () => {
                 posting: false,
                 posted: false,
                 postError: null
+            },
+            postStatusConnection: {
+                posting: false,
+                posted: false,
+                postError: null
             }
         };
 
@@ -89,6 +94,78 @@ describe("TeacherReducer.js", () => {
 
         let actual = teacherReducer(initialValue, {
             type: "SUBSCRIBE_TEACHER_REJECTED",
+            payload: "Erreur"
+        });
+
+        expect(actual).toEqual(expected);
+    });
+
+    test("When Action CONNECT_TEACHER_PENDING", () => {
+        let initialValue = {
+            postStatusConnection: {
+                posting: false
+            }
+        };
+
+        let expected = {
+            postStatusConnection: {
+                posting: true
+            }
+        };
+
+        let actual = teacherReducer(initialValue, {
+            type: "CONNECT_TEACHER_PENDING"
+        });
+
+        expect(actual).toEqual(expected);
+    });
+
+    test("When Action CONNECT_TEACHER_FULFILLED", () => {
+        let initialValue = {
+            postStatusConnection: {
+                posting: true,
+                posted: false
+            }
+        };
+
+        // Example of data returned by the API Call
+        let teacher: Teacher = {
+            id: 1,
+            email: "oui@gmail.com",
+        };
+
+        let expected = {
+            postStatusConnection: {
+                posting: false,
+                posted: true
+            }
+        };
+
+        let actual = teacherReducer(initialValue, {
+            type: "CONNECT_TEACHER_FULFILLED",
+            payload: teacher
+        });
+
+        expect(actual).toEqual(expected);
+    });
+
+    test("When Action CONNECT_TEACHER_REJECTED", () => {
+        let initialValue = {
+            postStatusConnection: {
+                posting: false,
+                postError: null
+            }
+        };
+
+        let expected = {
+            postStatusConnection: {
+                posting: false,
+                postError: "Erreur"
+            }
+        };
+
+        let actual = teacherReducer(initialValue, {
+            type: "CONNECT_TEACHER_REJECTED",
             payload: "Erreur"
         });
 

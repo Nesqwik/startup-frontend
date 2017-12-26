@@ -14,7 +14,8 @@ import Person from "material-ui/svg-icons/social/person"
 
 type Props = {
     postStatusSubscription: ReducerUtils.PostStatus,
-    //TODO onTeacherConnect: ,
+    postStatusConnection: ReducerUtils.PostStatus ,
+    onTeacherConnect: (Teacher) => Promise<Teacher>,
     onTeacherSubscribe: (Teacher) => Promise<Teacher>,
 
 };
@@ -67,10 +68,23 @@ class TeacherConnection extends Component<Props, State> {
     };
 
     /**
-     * fonction appelée lors de la connection d'un enseignant.
+     * fonction appelée lors de la connexion d'un enseignant.
      * @param form Le formulaire (valide)
      */
     handleConnect(form: Object) {
+        let teacher: Teacher = {
+            email: form.teacherEmail,
+            password: form.teacherPassword
+        }
+
+        this.props.onTeacherConnect(teacher).then(() => {
+            this.handleClose();
+        }, (errors) => {
+            this.setState({
+                serverErrors: errors
+            });
+        });
+
     }
 
     /**
@@ -118,10 +132,14 @@ class TeacherConnection extends Component<Props, State> {
                     style={{top:"-70px"}}
 
                 >
+
                     <Tabs
                         initialSelectedIndex={this.state.indexSelected}
                         tabItemContainerStyle={{
                             backgroundColor: "#FFFFFF",
+                        }}
+                        style={{
+                            paddingTop:"1px",
                         }}
                     >
                         <Tab label="Connexion"
@@ -130,7 +148,6 @@ class TeacherConnection extends Component<Props, State> {
                             <ConnectionForm
                                 onSubmit={this.handleConnect.bind(this)}
                                 onCancel={this.handleClose.bind(this)}
-                                //isLoading={this.props.postStatus.posting}
                             />
 
                         </Tab>
@@ -141,7 +158,6 @@ class TeacherConnection extends Component<Props, State> {
                             <SubscribeForm
                                 onSubmit={this.handleSubscribe.bind(this)}
                                 onCancel={this.handleClose.bind(this)}
-                                //isLoading={this.props.postStatusSubscription.posting}
                             />
 
                         </Tab>
