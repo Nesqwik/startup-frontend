@@ -4,7 +4,7 @@ import React from 'react'
 import Enzyme from 'enzyme'
 import ClassroomDisplay from "../ClassroomDisplay";
 import * as ReducerUtils from "../../../reducers/ReducerUtils";
-import {TableRow, TableRowColumn} from "material-ui";
+import {TableRow} from "material-ui";
 
 describe('<ClassroomDisplay />', () => {
 

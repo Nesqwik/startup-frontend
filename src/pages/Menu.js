@@ -4,6 +4,7 @@ import {Link} from 'react-router'
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import AppBar from 'material-ui/AppBar';
+import TeacherConnection from "../components/TeacherConnection/TeacherConnection";
 
 type Props = {
     children: Array<any>
@@ -55,13 +56,19 @@ class Menu extends Component<Props, State> {
                     title={<Link to={"/"} ><span className="appBarTitle">LudiClasse</span></Link>}
                     iconClassNameRight="muidocs-icon-navigation-expand-more"
                     onLeftIconButtonTouchTap={this.handleToggle.bind(this)}
+                    iconElementRight={<TeacherConnection/>}
+                    style={{position: 'fixed'}}
                 />
                 <Drawer open={this.state.openMenu} containerStyle={{
                     marginTop: 64,
-                    height: (window.innerHeight - 64)
-                }}>
+                    height: (window.innerHeight - 64),
+                    backgroundColor:"#282828",
+                }}
+                >
                     <Link to="/classes">
-                        <MenuItem>Classe</MenuItem>
+                        <MenuItem
+                            style={{color:"#FFFFFF"}}
+                        >Classe</MenuItem>
                     </Link>
                 </Drawer>
 

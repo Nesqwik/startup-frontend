@@ -36,6 +36,19 @@ export const renderTextField = ({input, label, meta: {touched, error}, custom}: 
         {...custom}
     />
 
+
+
+);
+
+export const renderPasswordField = ({input, label, meta: {touched, error}, custom}: Object) => (
+    <TextField
+        hintText={label}
+        floatingLabelText={label}
+        type='password'
+        errorText={touched && error}
+        {...input}
+        {...custom}
+    />
 );
 
 export const renderDatePicker = ({input, label, meta: {touched, error}, custom}: Object) => (
@@ -107,6 +120,8 @@ export const maxLength = (max: number) => (value: any) => {
  * Return error message if the input is more than 30 char.
  */
 export const maxLength30 = maxLength(30);
+export const maxLength20 = maxLength(20);
+
 
 /**
  * constructor for min length tester
@@ -125,6 +140,7 @@ export const minLength = (min: number) => (value: any) => {
  * Return error message if the input is less than 2 char.
  */
 export const minLength2 = minLength(2);
+export const minLength8 = minLength(8);
 
 /**
  * return error message if the input is not alphanumeric
@@ -161,6 +177,35 @@ export const alpha = (value: any) => {
 export const required = (value: any) => {
     return FormUtils.isEmpty(value) ? "Ce champ est obligatoire." : undefined;
 };
+
+/**
+ * return error message if the input is not in email pattern
+ * @param value to test
+ * @returns undefined if there is no error, the error string else.
+ */
+export const email = (value: any) => {
+    return !FormUtils.isEmail(value) ? "Ce champs doit être composé d'une adresse mail." : undefined;
+};
+
+/**
+ * return error message if the input is not equal to the other input
+ * @param value to test, value2 to test
+ * @returns undefined if there is no error, the error string else.
+ */
+export const equal = (nameOfField: string, field: string, object: Object) => {
+
+    return !FormUtils.isEqual(field, object[nameOfField]) ? "Ces champs ne coïncident pas." : undefined;
+};
+
+/**
+ * return error message if the input is not in alpha and numeric
+ * @param value to test
+ * @returns undefined if there is no error, the error string else.
+ */
+export const passwordAlphaNum = (value: any) => {
+    return !FormUtils.isAlphaNumNoSpace(value) ? "Ce champs doit être composé de lettre et de chiffres." : undefined;
+};
+
 
 /**
  * constructor for regex tester
