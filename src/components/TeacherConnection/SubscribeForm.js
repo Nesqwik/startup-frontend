@@ -23,10 +23,10 @@ let SubscribeForm = props => {
      * invalid => boolean à faux si le formulaire est invalide. Vrai sinon.
      * onCancel => fonction donné lors de l'instanciation du composant. Appelé lors d'un clique sur le bouton annuler.
      */
-    const {valid, onCancel, handleSubscribe, isLoading} = props;
+    const {valid, onCancel, handleSubmit, isLoading} = props;
 
     return (
-        <form onSubmit={handleSubscribe} className="subscribe-teacher-form">
+        <form onSubmit={handleSubmit} className="subscribe-teacher-form">
 
             <Field
                 name="teacherEmail"

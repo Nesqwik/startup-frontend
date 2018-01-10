@@ -16,15 +16,14 @@ import ValidateButton from "../ValidateButton/ValidateButton";
 
 let ConnectionForm = props => {
     /**
-     * handleConnect => fonction de gestion du formulaire (correspond au onSubmit donné lors de l'instanciation)
+     * onSubmit => fonction de gestion du formulaire (correspond au onSubmit donné lors de l'instanciation)
      * invalid => boolean à faux si le formulaire est invalide. Vrai sinon.
      * onCancel => fonction donné lors de l'instanciation du composant. Appelé lors d'un clique sur le bouton annuler.
      */
-    const {valid, onCancel, handleConnect, isLoading} = props;
+    const {valid, onCancel, handleSubmit, isLoading} = props;
 
     return (
-        <form onSubmit={handleConnect} className="connect-teacher-form">
-
+        <form onSubmit={handleSubmit} className="connect-teacher-form">
             <Field
                 name="teacherEmail"
                 component={renderTextField}
