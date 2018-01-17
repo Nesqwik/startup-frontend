@@ -8,10 +8,7 @@
  * password (optionnel): mot de passe de l'enseignant
  */
 
-export type Teacher = {
+export type Credentials = {
     email: string,
-    id?: number,
-    name: string,
-    password: string,
-    uuid?: string
+    password: string
 };

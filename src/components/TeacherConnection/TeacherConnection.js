@@ -1,28 +1,25 @@
 // @flow
 
 import React, {Component} from "react";
-import Dialog from "material-ui/Dialog";
 import * as ReducerUtils from "../../reducers/ReducerUtils";
 import type {Teacher} from "../../types/Teacher";
-import { IconButton, Tab, Tabs} from "material-ui";
+import {Tab, Tabs} from "material-ui";
 import SubscribeForm from "./SubscribeForm";
 import ConnectionForm from "./ConnectionForm";
-import Person from "material-ui/svg-icons/social/person"
-
-
 
 
 type Props = {
     postStatusSubscription: ReducerUtils.PostStatus,
-    postStatusConnection: ReducerUtils.PostStatus ,
+    postStatusConnection: ReducerUtils.PostStatus,
     onTeacherConnect: (Teacher) => Promise<Teacher>,
     onTeacherSubscribe: (Teacher) => Promise<Teacher>,
-
+    redirectToApp: () => void
 };
 
 type State = {
     open: boolean,
-    serverErrors: Array<string>,
+    connexionError: Array<string>,
+    subscriptionError: Array<string>,
     indexSelected: number
 }
 
@@ -46,7 +43,8 @@ class TeacherConnection extends Component<Props, State> {
      */
     state = {
         open: false,
-        serverErrors: [],
+        connexionError: [],
+        subscriptionError: [],
         indexSelected: 0
     };
 
@@ -57,7 +55,8 @@ class TeacherConnection extends Component<Props, State> {
     handleOpen(indexSelected: number) {
         this.setState({
             open: true,
-            indexSelected: indexSelected});
+            indexSelected: indexSelected
+        });
     };
 
     /**
@@ -75,13 +74,13 @@ class TeacherConnection extends Component<Props, State> {
         let teacher: Teacher = {
             email: form.teacherEmail,
             password: form.teacherPassword
-        }
+        };
 
         this.props.onTeacherConnect(teacher).then(() => {
-            this.handleClose();
+            this.props.redirectToApp();
         }, (errors) => {
             this.setState({
-                serverErrors: errors
+                connexionError: ["La combinaison email/mot de passe est incorrecte."]
             });
         });
 
@@ -92,82 +91,55 @@ class TeacherConnection extends Component<Props, State> {
      * @param form Le formulaire (valide)
      */
     handleSubscribe(form: Object) {
+        let teacher: Teacher = {
+            name: form.teacherName,
+            email: form.teacherEmail,
+            password: form.teacherPassword
+        };
 
-
-            let teacher: Teacher = {
-                name: form.teacherName,
-                email: form.teacherEmail,
-                password: form.teacherPassword
-            }
-
-            this.props.onTeacherSubscribe(teacher).then(() => {
-                this.handleClose();
-            }, (errors) => {
-                this.setState({
-                    serverErrors: errors
-                });
+        this.props.onTeacherSubscribe(teacher).then(() => {
+        }, (errors) => {
+            this.setState({
+                subscriptionError: errors
             });
-
+        });
     }
 
 
     render() {
 
         return (
-            <div>
-                <IconButton
-                    iconStyle={{color: "#FFFFFF"}}
-                    onClick={this.handleOpen.bind(this, 0)}
+            <Tabs
+                initialSelectedIndex={this.state.indexSelected}
+                tabItemContainerStyle={{
+                    backgroundColor: "#FFFFFF",
+                }}
+                style={{
+                    paddingTop: "1px",
+                }}
+            >
+                <Tab label="Connexion"
+                     style={{color: "#575757"}}
                 >
-                    <Person/>
-                </IconButton>
+                    <ConnectionForm
+                        onSubmit={this.handleConnect.bind(this)}
+                        onCancel={this.handleClose.bind(this)}
+                    />
 
+                    {this.state.connexionError.map((error) => <span>{error}</span>)}
 
-
-                <Dialog
-                    title="Connexion/Inscription"
-                    modal={true}
-                    open={this.state.open}
-                    className="dialog-title"
-                    autoScrollBodyContent={true}
-                    style={{top:"-70px"}}
-
+                </Tab>
+                <Tab label="Inscription"
+                     style={{color: "#575757"}}
                 >
 
-                    <Tabs
-                        initialSelectedIndex={this.state.indexSelected}
-                        tabItemContainerStyle={{
-                            backgroundColor: "#FFFFFF",
-                        }}
-                        style={{
-                            paddingTop:"1px",
-                        }}
-                    >
-                        <Tab label="Connexion"
-                            style={{color: "#575757"}}
-                        >
-                            <ConnectionForm
-                                onSubmit={this.handleConnect.bind(this)}
-                                onCancel={this.handleClose.bind(this)}
-                            />
+                    <SubscribeForm
+                        onSubmit={this.handleSubscribe.bind(this)}
+                        onCancel={this.handleClose.bind(this)}
+                    />
 
-                        </Tab>
-                        <Tab label="Inscription"
-                             style={{color: "#575757"}}
-                        >
-
-                            <SubscribeForm
-                                onSubmit={this.handleSubscribe.bind(this)}
-                                onCancel={this.handleClose.bind(this)}
-                            />
-
-                        </Tab>
-                    </Tabs>
-
-
-                    {this.state.serverErrors.map(error => <p>{error}</p>)}
-                </Dialog>
-            </div>
+                </Tab>
+            </Tabs>
         );
     }
 }

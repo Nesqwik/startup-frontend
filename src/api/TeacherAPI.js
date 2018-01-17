@@ -1,5 +1,6 @@
 import ApiInstance from "./ApiHelper";
 import type {Teacher} from "../types/Teacher";
+import type {Credentials} from "../types/Credentials";
 
 /**
  * Requête POST sur /teacher avec teacher en body.
@@ -17,10 +18,14 @@ async function subscribeTeacher(teacher: Teacher) {
  * @returns {Promise<any>}
  *
  */
-async function connectTeacher(teacher: Teacher){
-    return await ApiInstance.post("/connect/teacher", teacher);
+async function connectTeacher(credentials: Credentials) {
+    return await ApiInstance.post("/connect/teacher", {}, {
+        auth: {
+            username: credentials.email,
+            password: credentials.password
+        }
+    });
 }
-
 
 
 export default {

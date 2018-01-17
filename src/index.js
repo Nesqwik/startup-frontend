@@ -17,6 +17,7 @@ import Routes from "./pages/Routes";
 
 const history = syncHistoryWithStore(hashHistory, store);
 
+
 /**
  * Point d'entrée de react sur la page index.html.
  */

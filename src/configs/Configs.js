@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === 'production') {
     ENDPOINT = base;
     WS_ENDPOINT = base + "ws/"
 } else {
-    let base = "http://149.202.179.212:8080/dev/";
+    let base = "http://localhost:8080/";
     ENDPOINT = base;
     WS_ENDPOINT = base + "ws/"
 }

@@ -4,7 +4,6 @@ import {Link} from 'react-router'
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import AppBar from 'material-ui/AppBar';
-import TeacherConnectionContainer from "../containers/TeacherConnection/TeacherConnectionContainer";
 
 type Props = {
     children: Array<any>
@@ -53,9 +52,8 @@ class Menu extends Component<Props, State> {
         return (
             <div>
                 <AppBar
-                    title={<Link to={"/"} ><span className="appBarTitle">LudiClasse</span></Link>}
+                    title={<Link to={"/app"} ><span className="appBarTitle">LudiClasse</span></Link>}
                     onLeftIconButtonTouchTap={this.handleToggle.bind(this)}
-                    iconElementRight={<TeacherConnectionContainer/>}
                     style={{position: 'fixed'}}
                 />
                 <Drawer open={this.state.openMenu} containerStyle={{
@@ -64,7 +62,7 @@ class Menu extends Component<Props, State> {
                     backgroundColor:"#282828",
                 }}
                 >
-                    <Link to="/classes">
+                    <Link to="/app/classes">
                         <MenuItem
                             style={{color:"#FFFFFF"}}
                         >Classe</MenuItem>
