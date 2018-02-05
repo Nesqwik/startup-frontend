@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "homepage": "/PATH",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "private": true,
   "dependencies": {
     "axios": "^0.17.1",

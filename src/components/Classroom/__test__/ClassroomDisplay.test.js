@@ -42,7 +42,6 @@ describe('<ClassroomDisplay />', () => {
                     idStudent: 2
                 },
                 uuid: "ghijklm123456",
-
             }],
             classroom:{
                 id : 1,
