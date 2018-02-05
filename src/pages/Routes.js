@@ -6,7 +6,7 @@ import Classes from "./Classes";
 import Classroom from "./Classroom";
 import QCMAnswers from "./QCMAnswers";
 import Login from "./Login";
-import EmptyContainer from "./EmptyContainer";
+import EmptyContainer from "./LoginContainer";
 
 type Props = {
     history: Object

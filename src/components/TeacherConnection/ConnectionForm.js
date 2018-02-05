@@ -46,11 +46,6 @@ let ConnectionForm = props => {
                     label={"Se connecter"}
                 />
 
-                <RaisedButton
-                    label="Annuler"
-                    onClick={onCancel}
-                    className="cancel-button"
-                />
             </div>
         </form>
     );

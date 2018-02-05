@@ -71,11 +71,6 @@ let SubscribeForm = props => {
                     label={"S'inscrire"}
                 />
 
-                <RaisedButton
-                    label="Annuler"
-                    onClick={onCancel}
-                    className="cancel-button"
-                />
             </div>
         </form>
     );

@@ -45,7 +45,7 @@ class TeacherConnection extends Component<Props, State> {
         open: false,
         connexionError: [],
         subscriptionError: [],
-        indexSelected: 0
+        indexSelected: 1
     };
 
 
