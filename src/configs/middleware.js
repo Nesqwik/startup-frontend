@@ -4,6 +4,10 @@
 
 import {applyMiddleware, compose} from "redux";
 import promiseMiddleware from "redux-promise-middleware";
+import {routerMiddleware} from 'react-router-redux';
+
+import {hashHistory} from 'react-router';
+
 
 /**
  * Ajoute le plugin redux_devtools si présent dans le navigateur.
@@ -19,5 +23,5 @@ const composeEnhancers =
 
 
 export const middleware = composeEnhancers(
-    applyMiddleware(promiseMiddleware()),
+    applyMiddleware(promiseMiddleware(), routerMiddleware(hashHistory)),
 );

@@ -52,16 +52,20 @@ class Menu extends Component<Props, State> {
         return (
             <div>
                 <AppBar
-                    title={<Link to={"/"} ><span className="appBarTitle">LudiClasse</span></Link>}
-                    iconClassNameRight="muidocs-icon-navigation-expand-more"
+                    title={<Link to={"/app"} ><span className="appBarTitle">LudiClasse</span></Link>}
                     onLeftIconButtonTouchTap={this.handleToggle.bind(this)}
+                    style={{position: 'fixed'}}
                 />
                 <Drawer open={this.state.openMenu} containerStyle={{
                     marginTop: 64,
-                    height: (window.innerHeight - 64)
-                }}>
-                    <Link to="/classes">
-                        <MenuItem>Classe</MenuItem>
+                    height: (window.innerHeight - 64),
+                    backgroundColor:"#282828",
+                }}
+                >
+                    <Link to="/app/classes">
+                        <MenuItem
+                            style={{color:"#FFFFFF"}}
+                        >Classe</MenuItem>
                     </Link>
                 </Drawer>
 

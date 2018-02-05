@@ -16,7 +16,7 @@ type State = {
 class ClassItem extends React.Component<Props, State> {
     render() {
         return (
-            <Link to={`/classes/${this.props.classroom.id}`}>
+            <Link to={`/app/classes/${this.props.classroom.id}`}>
                 <Divider />
                 <ListItem
                     key={3}

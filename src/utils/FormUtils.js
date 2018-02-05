@@ -20,6 +20,37 @@ export function isAlphaNum(input: any): boolean {
     return matchRegex(/^[a-zA-Z0-9\-_ ']*$/, input);
 }
 
+/**
+ * Check if the input is alpha numeric without space
+ * @param input (string or number)
+ * @returns true if it is, false otherwise
+ */
+export function isAlphaNumNoSpace(input: any): boolean {
+    return matchRegex(/^[a-zA-Z0-9\-_']*$/, input);
+}
+
+/**
+ * Check if the input is an email
+ * @param input (string)
+ * @returns true if it is, false otherwise
+ */
+export function isEmail(input: string): boolean {
+    let array = input.split('@');
+    if(array.length <= 1) return false;
+    let array2 = array[1].split('.');
+    if(array2.length !== 2) return false;
+    return isAlphaNumNoSpace(array[0]) && isAlphaNumNoSpace(array2[0]) && isAlphaNumNoSpace(array2[1]);
+}
+
+/**
+ * Check if the input is equal to input2
+ * @param input (string), input2 (string)
+ * @returns true if it is, false otherwise
+ */
+export function isEqual(input: string, input2: string): boolean {
+    return input=== input2;
+}
+
 
 /**
  * Check if input match the regex.

@@ -6,7 +6,7 @@ import type {Student} from "../types/Student";
 import type {WsPoints} from "../types/WsPoints";
 
 /**
- * Etat du state studnet :
+ * Etat du state student :
  * students:
  *  byId: map idClasse => classe
  *  allIds: Tableau idStudents
