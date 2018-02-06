@@ -192,7 +192,7 @@ class ClassroomDisplay extends React.Component<Props, State> {
                         onClick={this.handleAddBonus.bind(this, student.id)}
                     />
                 </TableRowColumn>
-                <TableRowColumn>
+                {/*<TableRowColumn>
                     <FlatButton
                         style={{color:'#FF0000'}}
                         label={student.points.malus  + ""}
@@ -200,7 +200,7 @@ class ClassroomDisplay extends React.Component<Props, State> {
                         icon={<Minus/>}
                         onClick={this.handleAddMalus.bind(this, student.id)}
                     />
-                </TableRowColumn>
+                </TableRowColumn>*/}
                 <TableRowColumn>{student.points.bonus - student.points.malus}</TableRowColumn>
                 <TableRowColumn>
                     <IconButton onClick={this.handleShowQRCode.bind(this, student)}>

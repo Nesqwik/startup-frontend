@@ -2,6 +2,7 @@
 
 import type {Teacher} from "../types/Teacher";
 import TeacherAPI from "../api/TeacherAPI";
+import type {Credentials} from "../types/Credentials";
 
 export const SUBSCRIBE_TEACHER = "SUBSCRIBE_TEACHER";
 export const SUBSCRIBE_TEACHER_PENDING = SUBSCRIBE_TEACHER + "_PENDING";
@@ -38,10 +39,11 @@ export function subscribeTeacher(teacher: Teacher) {
  * payload : Promise contenant erreur si rejected ou l'enseignant ajouté si réussi.
  * @returns {{type: string, payload: Promise}}
  */
-export function connectTeacher(teacher: Teacher) {
+export function connectTeacher(credentials: Credentials) {
     return {
         type: CONNECT_TEACHER,
-        payload: TeacherAPI.connectTeacher(teacher)
+        payload: TeacherAPI.connectTeacher(credentials),
+        meta: credentials
     }
 }
 

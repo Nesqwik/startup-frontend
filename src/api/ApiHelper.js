@@ -24,6 +24,7 @@ const getApiInstance = () => {
     axiosInstance.interceptors.response.use(function (response) {
         return response.data; // unwrap data response
     }, function (error) {
+        console.log(error);
         // If there is error data, return the error array.
         if (error.response && error.response.data) {
             return Promise.reject(error.response.data);
@@ -37,12 +38,14 @@ const getApiInstance = () => {
 
         let state = store.getState();
 
+        console.log(TeacherSelectors.isConnected(state));
         if (TeacherSelectors.isConnected(state)) {
             let credentials: Credentials = TeacherSelectors.getCredentials(state);
             config.auth = {
                 username: credentials.email,
                 password: credentials.password
             };
+            console.log(config.auth);
         }
 
         return config;

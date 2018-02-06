@@ -11,13 +11,15 @@ import type {Credentials} from "../types/Credentials";
 type State = {
     postStatusSubscription: ReducerUtils.PostStatus,
     postStatusConnection: ReducerUtils.PostStatus,
-    connectedTeacher: ?Teacher
+    connectedTeacher: ?Teacher,
+    credentials: ?Credentials
 }
 
 const initialState: State = {
     postStatusSubscription: ReducerUtils.createPostStatus(),
     postStatusConnection: ReducerUtils.createPostStatus(),
-    connectedTeacher: null
+    connectedTeacher: null,
+    credentials: null
 };
 
 /**
@@ -28,6 +30,10 @@ const initialState: State = {
  */
 const reducer = (state: State = initialState, action: ReducerUtils.Action) => {
     switch (action.type) {
+        case "RESTORE":
+            if(!action.state || !action.state.teacherState) return state;
+            return action.state.teacherState;
+
         case TeacherActions.SUBSCRIBE_TEACHER_PENDING:
             return subscribeTeacherPending(state);
         case TeacherActions.SUBSCRIBE_TEACHER_FULFILLED:
@@ -94,6 +100,9 @@ function connectTeacherFulfilled(state: State, action: ReducerUtils.Action) {
         },
         connectedTeacher: {
             $set: action.payload
+        },
+        credentials: {
+            $set: action.meta
         }
     });
 }
@@ -137,11 +146,8 @@ export const isConnected = (store: Object) => {
 };
 
 export const getCredentials = (store: Object): Credentials => {
-    let teacher: Teacher = getConnectedTeacher();
-    return {
-        email: teacher.email,
-        password: teacher.password
-    };
+    let credentials: Credentials = getState(store).credentials;
+    return credentials;
 };
 
 

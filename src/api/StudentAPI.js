@@ -38,7 +38,8 @@ async function addBonus(studentId: number) {
     return await ApiInstance.post("/points", {
         "bonus": 1,
         "idStudent": studentId,
-        "malus": 0
+        "malus": 0,
+        "argent": 0
     });
 }
 

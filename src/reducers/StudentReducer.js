@@ -209,7 +209,7 @@ const getState = (store: Object) => {
 
 export const getStudentsForClass = (store: Object, classId: number) => {
     let state = getState(store);
-    return state.students.allIds.map(id => state.students.byId[id]).filter((student) => student.classroom.id === classId);
+    return state.students.allIds.map(id => state.students.byId[id]).filter((student) => student.classroom && student.classroom.id === classId);
 };
 
 export const getPostStatus = (store: Object) => {

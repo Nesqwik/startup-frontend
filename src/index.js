@@ -18,6 +18,18 @@ import Routes from "./pages/Routes";
 const history = syncHistoryWithStore(hashHistory, store);
 
 
+let state = localStorage.getItem("state");
+
+store.dispatch({
+    type: "RESTORE",
+    state: JSON.parse(state)
+});
+
+store.subscribe(() => {
+    let state = store.getState();
+    localStorage.setItem("state", JSON.stringify(state));
+});
+
 /**
  * Point d'entrée de react sur la page index.html.
  */

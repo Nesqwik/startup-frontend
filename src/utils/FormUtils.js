@@ -35,11 +35,7 @@ export function isAlphaNumNoSpace(input: any): boolean {
  * @returns true if it is, false otherwise
  */
 export function isEmail(input: string): boolean {
-    let array = input.split('@');
-    if(array.length <= 1) return false;
-    let array2 = array[1].split('.');
-    if(array2.length !== 2) return false;
-    return isAlphaNumNoSpace(array[0]) && isAlphaNumNoSpace(array2[0]) && isAlphaNumNoSpace(array2[1]);
+    return matchRegex(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, input);
 }
 
 /**
