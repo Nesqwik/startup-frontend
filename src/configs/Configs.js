@@ -5,11 +5,11 @@
 let ENDPOINT;
 let WS_ENDPOINT;
 if (process.env.NODE_ENV === 'production') {
-    let base = "http://149.202.179.212:8080/prod/";
+    let base = "http://149.202.179.212:8080/dev/";
     ENDPOINT = base;
     WS_ENDPOINT = base + "ws/"
 } else {
-    let base = "http://localhost:8080/";
+    let base = "http://149.202.179.212:8080/dev/";
     ENDPOINT = base;
     WS_ENDPOINT = base + "ws/"
 }
