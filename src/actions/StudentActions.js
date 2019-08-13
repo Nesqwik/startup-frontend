@@ -79,6 +79,15 @@ export function addBonus(studentId: number) {
     }
 }
 
+/**
+ * Action permettant l'ajout d'un malus à un élève.
+ * Appel la requête de l'ajout d'un malus à un élève.
+ * @param studentId id de l'élève
+ *
+ * type : génère les types ADD_MALUS_[PENDING/REJECTED/FULFILLED] automatiquement à récupérer dans le reducer.
+ * payload : Promise contenant erreur si rejected ou le malus ajouté à l'élève si réussi.
+ * @returns {{type: string, payload: Promise}}
+ */
 
 export function addMalus(studentId: number) {
     return {
@@ -90,6 +99,15 @@ export function addMalus(studentId: number) {
 
 export const WS_POINT_CHANGE = "WS_POINT_CHANGE";
 
+/**
+ * Action permettant l'ajout d'un bonus en temps réel.
+ *
+ * @param wsPoints le point en temps réel
+ *
+ * type : génère les types WS_POINT_CHANGE automatiquement à récupérer dans le reducer.
+ * payload : Promise contenant erreur si rejected ou le point ajouté en temps réel si réussi.
+ * @returns {{type: string, payload: Promise}}
+ */
 export function addBonusRt(wsPoints: WsPoints) {
 
     return {

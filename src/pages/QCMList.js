@@ -10,6 +10,9 @@ type Props = {
 type State = {
 }
 
+/*
+    Page d'affichage de la liste des QCMs
+ */
 class QCMList extends Component<Props, State> {
 
     render() {

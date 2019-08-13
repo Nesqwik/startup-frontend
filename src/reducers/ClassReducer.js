@@ -57,7 +57,12 @@ const reducer = (state: State = initialState, action: ReducerUtils.Action) => {
     }
 };
 
-
+/**
+ * Fonction effectuée si postClass est rejeté.
+ * @param state
+ * @param action
+ * @returns {*}
+ */
 const postClassRejected = (state: State, action: ReducerUtils.Action) => {
     return update(state, {
         postStatus: {
@@ -66,6 +71,12 @@ const postClassRejected = (state: State, action: ReducerUtils.Action) => {
     });
 };
 
+/**
+ * Fonction effectuée si postClass a réussi.
+ * @param state
+ * @param action
+ * @returns {*}
+ */
 const postClassFulfilled = (state: State, action: ReducerUtils.Action) => {
     let classroom: Classroom = action.payload;
 
@@ -89,6 +100,12 @@ const postClassFulfilled = (state: State, action: ReducerUtils.Action) => {
     });
 };
 
+/**
+ * Fonction effectuée si postClass est en attente.
+ * @param state
+ * @param action
+ * @returns {*}
+ */
 const postClassPending = (state: State, action: ReducerUtils.Action) => {
     return update(state, {
         postStatus: {
@@ -98,6 +115,12 @@ const postClassPending = (state: State, action: ReducerUtils.Action) => {
 };
 
 
+/**
+ * Fonction effectuée si fetchClasses est rejeté.
+ * @param state
+ * @param action
+ * @returns {*}
+ */
 const fetchClassesRejected = (state: State, action: ReducerUtils.Action) => {
     return update(state, {
         fetchStatus: {
@@ -106,6 +129,12 @@ const fetchClassesRejected = (state: State, action: ReducerUtils.Action) => {
     });
 };
 
+/**
+ * Fonction effectuée si fetchClasses est fini.
+ * @param state
+ * @param action
+ * @returns {*}
+ */
 const fetchClassesFulfilled = (state: State, action: ReducerUtils.Action) => {
     let classrooms: Array<Classroom> = action.payload;
 
@@ -124,6 +153,12 @@ const fetchClassesFulfilled = (state: State, action: ReducerUtils.Action) => {
     });
 };
 
+/**
+ * Fonction effectuée si fetchClasses est en attente.
+ * @param state
+ * @param action
+ * @returns {*}
+ */
 const fetchClassesPending = (state: State, action: ReducerUtils.Action) => {
     return update(state, {
         fetchStatus: {
@@ -139,15 +174,31 @@ export default reducer;
 /* SELECTORS */
 /*************/
 
+/**
+ * Retourne l'état de la classe
+ * @param store
+ * @returns {(function(State=, Action))|{postStatus: string}|classState|{postStatus}|{fetchStatus: string}|{fetchStatus}}
+ */
 const getState = (store: Object) => {
     return store.classState;
 };
 
+/**
+ * Met à jour les classes
+ * @param store
+ * @returns {any[]}
+ */
 export const getClasses = (store: Object) => {
     let state = getState(store);
     return state.classes.allIds.map(id => state.classes.byId[id]);
 };
 
+/**
+ * Met à jour une classe
+ * @param store
+ * @param id
+ * @returns {*}
+ */
 export const getClass = (store: Object, id: number) => {
     let state = getState(store);
     return state.classes.byId[id];
@@ -155,11 +206,21 @@ export const getClass = (store: Object, id: number) => {
 
 }
 
+/**
+ * récupére l'état du post
+ * @param store
+ * @returns {string}
+ */
 export const getPostStatus = (store: Object) => {
     let state = getState(store);
     return state.postStatus;
 };
 
+/**
+ * récupére l'état du fetch
+ * @param store
+ * @returns {string}
+ */
 export const getFetchStatus = (store: Object) => {
     let state = getState(store);
     return state.fetchStatus;

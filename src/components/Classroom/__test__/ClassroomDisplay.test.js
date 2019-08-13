@@ -83,5 +83,5 @@ describe('<ClassroomDisplay />', () => {
         expect(wrapper.find(TableRow).first().key()).toEqual("1");
         expect(wrapper.find(TableRow).last().key()).toEqual("2");
     });
-
+    
 });

@@ -82,7 +82,11 @@ class ClassroomDisplay extends React.Component<Props, State> {
         if(!this.props.fetchStatusStudent.fetched) this.props.fetchStudents();
     }
 
-
+    /**
+     * Fonction appelé à chaque mise à jour des propriétés.
+     * Permet la mise à jour du channel à écouter en cas de changement d'étudiants.
+     * @param nextProps
+     */
     componentWillReceiveProps(nextProps: Props) {
         if(this.props.students.length !== nextProps.students.length) {
             nextProps.students.forEach((student: Student) => {
@@ -151,7 +155,7 @@ class ClassroomDisplay extends React.Component<Props, State> {
 
     /**
      *
-     * Fonction appelée pour ouvrir une nouvelle fenêtre contenant le code QR
+     * Fonction appelée pour ouvrir une nouvelle fenêtre contenant les codes QR de tous les élèves de la classe
      * @param students est le tableau contenant tous les élèves donc le QR code est affiché
      */
     handleShowAllQRCodes(students: Array<Student>){

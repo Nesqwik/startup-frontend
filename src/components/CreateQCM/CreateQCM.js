@@ -17,6 +17,14 @@ type State = {
     serverErrors: Array<string>
 }
 
+/**
+ * Composant permettant de créer un QCM
+ *
+ * propriétés :
+ *  onPostQCM: fonction callback à appeler pour créer un nouveau QCM
+ *  postStatus: état de la requête d'ajout de QCM
+ *  classId: ID de la classe
+ */
 class CreateQCM extends Component<Props, State> {
 
     /**

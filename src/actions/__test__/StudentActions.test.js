@@ -1,6 +1,4 @@
 // @flow
-import * as ClassActions from "../ClassActions";
-import type {Classroom} from "../../types/Classroom";
 import MockAdapter from 'axios-mock-adapter';
 import apiInstance from "../../api/ApiHelper"
 import * as StudentActions from "../StudentActions";
@@ -80,4 +78,6 @@ describe("studentActions.js", async () => {
 
         actual.payload.then((res) => expect(res).toEqual(returnedPoints));
     });
+
+    //TODO Louis test ws_point_change
 });

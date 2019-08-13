@@ -60,6 +60,11 @@ const reducer = (state: State = initialState, action: ReducerUtils.Action) => {
 
 export default reducer;
 
+/**
+ * Fonction effectuée si addStudent est en attente.
+ * @param state
+ * @returns {*}
+ */
 function addStudentPending(state: State){
 
     return update(state, {
@@ -70,6 +75,11 @@ function addStudentPending(state: State){
 
 }
 
+/**
+ * Fonction effectuée si addStudent est fini.
+ * @param state
+ * @returns {*}
+ */
 function addStudentFulfilled(state: State, action: ReducerUtils.Action){
 
     let student: Student = action.payload;
@@ -94,6 +104,11 @@ function addStudentFulfilled(state: State, action: ReducerUtils.Action){
     });
 }
 
+/**
+ * Fonction effectuée si addStudent est rejeté.
+ * @param state
+ * @returns {*}
+ */
 function addStudentRejected(state: State, action: ReducerUtils.Action){
 
     return update(state, {
@@ -103,6 +118,11 @@ function addStudentRejected(state: State, action: ReducerUtils.Action){
     });
 }
 
+/**
+ * Fonction effectuée si getStudents est en attente.
+ * @param state
+ * @returns {*}
+ */
 function getStudentsPending(state: State){
 
     return update(state, {
@@ -113,6 +133,11 @@ function getStudentsPending(state: State){
 
 }
 
+/**
+ * Fonction effectuée si getStudents est fini.
+ * @param state
+ * @returns {*}
+ */
 function getStudentsFulfilled(state: State, action: ReducerUtils.Action){
 
     let students: Array<Student> = action.payload;
@@ -132,6 +157,11 @@ function getStudentsFulfilled(state: State, action: ReducerUtils.Action){
     });
 }
 
+/**
+ * Fonction effectuée si getStudents est rejeté.
+ * @param state
+ * @returns {*}
+ */
 function getStudentsRejected(state: State, action: ReducerUtils.Action){
 
     return update(state, {
@@ -141,6 +171,11 @@ function getStudentsRejected(state: State, action: ReducerUtils.Action){
     });
 }
 
+/**
+ * Fonction effectuée si addBonus est en attente.
+ * @param state
+ * @returns {*}
+ */
 function addBonusPending(state: State){
 
     return update(state, {
@@ -151,6 +186,11 @@ function addBonusPending(state: State){
 
 }
 
+/**
+ * Fonction effectuée si addBonus est fini.
+ * @param state
+ * @returns {*}
+ */
 function addBonusFulfilled(state: State, action: ReducerUtils.Action){
 
     let points: Points = action.payload;
@@ -173,6 +213,12 @@ function addBonusFulfilled(state: State, action: ReducerUtils.Action){
     });
 }
 
+/**
+ * Permet de mettre à jour les points (pour le temps réel, lors d'un message websocket)
+ * @param state
+ * @param action
+ * @returns {*}
+ */
 function pointsChangeRt(state: State, action: ReducerUtils.Action){
     let points: WsPoints = action.payload;
     let idStudent: number = points.student.id;
@@ -190,6 +236,11 @@ function pointsChangeRt(state: State, action: ReducerUtils.Action){
     });
 }
 
+/**
+ * Fonction effectuée si addBonus est rejeté.
+ * @param state
+ * @returns {*}
+ */
 function addBonusRejected(state: State, action: ReducerUtils.Action){
 
     return update(state, {
@@ -203,20 +254,41 @@ function addBonusRejected(state: State, action: ReducerUtils.Action){
 /* SELECTORS */
 /*************/
 
+/**
+ * Retourne l'état du student
+ * @param store
+ * @returns {(function(State=, Action))|{postStatus: string}|studentState|{postStatus}|{fetchStatus: string}|{fetchStatus}}
+ */
 const getState = (store: Object) => {
     return store.studentState;
 };
 
+/**
+ * Met à jour les students par classe
+ * @param store
+ * @param classId
+ * @returns {any[]}
+ */
 export const getStudentsForClass = (store: Object, classId: number) => {
     let state = getState(store);
     return state.students.allIds.map(id => state.students.byId[id]).filter((student) => student.classroom && student.classroom.id === classId);
 };
 
+/**
+ * récupère l'état du post
+ * @param store
+ * @returns {string}
+ */
 export const getPostStatus = (store: Object) => {
     let state = getState(store);
     return state.postStatus;
 };
 
+/**
+ * récupère l'état du fetch
+ * @param store
+ * @returns {string}
+ */
 export const getFetchStatus = (store: Object) => {
     let state = getState(store);
     return state.fetchStatus;

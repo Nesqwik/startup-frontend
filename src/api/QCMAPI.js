@@ -21,11 +21,19 @@ async function postQCM(qcm: QCM) {
 function fetchQCMPerClass(idClass: number) {
     return ApiInstance.get("/qcm/classroom"+ idClass);
 }
-
+/**
+ * Requête GET sur /qcm .
+ * @returns {Promise<any>}
+ */
 function fetchQCMs() {
     return ApiInstance.get("/qcm");
 }
 
+/**
+ * Requête GET sur /resultQcm/${qcmId}.
+ * @param qcmId l'id du QCM
+ * @returns {Promise<any>}
+ */
 function fetchAnswers(qcmId: number) {
     return ApiInstance.get(`/resultQcm/${qcmId}`);
 }
